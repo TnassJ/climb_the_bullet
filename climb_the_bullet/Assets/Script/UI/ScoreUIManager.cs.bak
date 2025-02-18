@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class ScoreUIManager : MonoBehaviour
+{
+    public TextMeshProUGUI m_levelText;// スコアのテキスト
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // プレイヤーのインスタンスを取得する
+        //var player = ShootingPlayer.m_instance;
+        // スコアのテキストの表示を更新する
+        m_levelText.text = ShootingPlayer.PlayerExpSum.ToString();
+
+        
+    }
+}
