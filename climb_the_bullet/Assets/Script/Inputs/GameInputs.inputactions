@@ -43,11 +43,11 @@
                 },
                 {
                     "name": "Slow",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "7ad61b96-0a25-467f-8118-ff8a30f9bbb3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -298,6 +298,17 @@
                 },
                 {
                     "name": "",
+                    "id": "28e4dbdf-d124-4a52-b16e-148b42912d58",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "713edca0-5210-4bbc-a7d7-b18a896d452d",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -311,6 +322,17 @@
                     "name": "",
                     "id": "1c442c41-43b6-464f-b346-b0d28001f9e8",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c49a9f9b-ca8f-4db7-8667-cd968a1fbea9",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
