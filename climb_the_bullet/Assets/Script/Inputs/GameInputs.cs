@@ -65,11 +65,11 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Slow"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""7ad61b96-0a25-467f-8118-ff8a30f9bbb3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Hold(duration=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -365,7 +365,24 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""KeyAndPad"",
+            ""bindingGroup"": ""KeyAndPad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -576,6 +593,16 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    private int m_KeyAndPadSchemeIndex = -1;
+    public InputControlScheme KeyAndPadScheme
+    {
+        get
+        {
+            if (m_KeyAndPadSchemeIndex == -1) m_KeyAndPadSchemeIndex = asset.FindControlSchemeIndex("KeyAndPad");
+            return asset.controlSchemes[m_KeyAndPadSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);

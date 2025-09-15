@@ -124,8 +124,8 @@ public class ShootingShikigami_RIKUGO : MonoBehaviour
             shot.Updatevelo(shotAngle, speed);
 
         }
+
         audioSource.PlayOneShot(ShotClip_RIKUGO, 0.03f); // SE再生
-        //}
     }
 
     public float GetAngle2(Vector2 start, Vector2 target)

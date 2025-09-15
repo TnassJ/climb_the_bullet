@@ -136,6 +136,9 @@ public class BossMove : MonoBehaviour
     int wave_i = 0; // i番目の弾パターン
 
     public ExtinguishEnemy ExtinguishPrefab; // 爆発エフェクトのプレハブ
+    public ExtinguishBossEffect extinguishBossEffect;
+    public bool LastBossForExtinguish = false;
+
     float GemSpeedMin = 0; // 生成する宝石の移動の速さ（最小値）
     float GemSpeedMax = 0.1f; // 生成する宝石の移動の速さ（最大値）
 
@@ -1365,7 +1368,7 @@ public class BossMove : MonoBehaviour
 
         // 前フレームからの時間の差を加算
         timeCount += Time.deltaTime;
-        if (randomCount >= 9.99f || timeCount > shotInterval)
+        if (randomCount >= 9.99f && timeCount > shotInterval)
         {
 
 
@@ -1383,7 +1386,6 @@ public class BossMove : MonoBehaviour
 
             timeCount = 0;
             audioSource.PlayOneShot(bossFamiliarClip, 0.2f); // SE再生
-
         }
     }
 
@@ -1853,16 +1855,10 @@ public class BossMove : MonoBehaviour
 
             BossDead = true; // 死んだ信号をONにする　BossManagerで読み取り
 
-            // 自身を消す
-            Destroy(gameObject);
-            // 弾も消す
-            Destroy(other.gameObject);
-            // 弾が当たった場所に爆発エフェクトを生成する
-            Instantiate(
-                ExtinguishPrefab,
-                other.transform.localPosition,
-                Quaternion.identity);
+            var extinguishBossEffectPrefab = Instantiate(extinguishBossEffect, transform.localPosition, Quaternion.identity);
+            extinguishBossEffectPrefab.callEffect(this.transform.position, ExtinguishPrefab);
 
+            Destroy(gameObject);
         }
     }
 

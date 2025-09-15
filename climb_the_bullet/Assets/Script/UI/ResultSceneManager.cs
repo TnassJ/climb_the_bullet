@@ -45,43 +45,40 @@ public class ResultSceneManager : MonoBehaviour
 
             //�������Ƀ��X�g�ɓ����X�R�A�A�������̓X�R�A���Ȃ��ꍇ�ɓ���鐔�l
             score.Add(PlayerPrefs.GetInt($"SCORE[{i}]", 0));
-            scoreYMD.Add(PlayerPrefs.GetString($"SCOREYMD[{i}]", "YYYY/MM/DD"));
-
+            scoreYMD.Add(PlayerPrefs.GetString($"SCOREYMD[{i}]", "YYYY/MM/DDFFF"));
         }
         //�����̃X�R�A�̒l�����ׂ�score���X�g�ɑ}���Ascore[0]���n�C�X�R�A
         //for (int i = 0; i < 10; i++)
         //{
         //�������Ƀ��X�g�ɓ����X�R�A�A�������̓X�R�A���Ȃ��ꍇ�ɓ���鐔�l
         //score.Add(PlayerPrefs.GetInt($"SCORE[{i}]", 0));
-        scoreText0.text = score[0].ToString();
-        scoreText1.text = score[1].ToString();
-        scoreText2.text = score[2].ToString();
-        scoreText3.text = score[3].ToString();
-        scoreText4.text = score[4].ToString();
-        scoreText5.text = score[5].ToString();
-        scoreText6.text = score[6].ToString();
-        scoreText7.text = score[7].ToString();
-        scoreText8.text = score[8].ToString();
-        scoreText9.text = score[9].ToString();
 
-        DateText0.text = scoreYMD[0].ToString();
-        DateText1.text = scoreYMD[1].ToString();
-        DateText2.text = scoreYMD[2].ToString();
-        DateText3.text = scoreYMD[3].ToString();
-        DateText4.text = scoreYMD[4].ToString();
-        DateText5.text = scoreYMD[5].ToString();
-        DateText6.text = scoreYMD[6].ToString();
-        DateText7.text = scoreYMD[7].ToString();
-        DateText8.text = scoreYMD[8].ToString();
-        DateText9.text = scoreYMD[9].ToString();
+        scoreText0.text = score[0].ToString().PadLeft(8, '0');
+        scoreText1.text = score[1].ToString().PadLeft(8, '0');
+        scoreText2.text = score[2].ToString().PadLeft(8, '0');
+        scoreText3.text = score[3].ToString().PadLeft(8, '0');
+        scoreText4.text = score[4].ToString().PadLeft(8, '0');
+        scoreText5.text = score[5].ToString().PadLeft(8, '0');
+        scoreText6.text = score[6].ToString().PadLeft(8, '0');
+        scoreText7.text = score[7].ToString().PadLeft(8, '0');
+        scoreText8.text = score[8].ToString().PadLeft(8, '0');
+        scoreText9.text = score[9].ToString().PadLeft(8, '0');
 
-        //}
-
+        DateText0.text = ResultDataTrim(scoreYMD[0].ToString());
+        DateText1.text = ResultDataTrim(scoreYMD[1].ToString());
+        DateText2.text = ResultDataTrim(scoreYMD[2].ToString());
+        DateText3.text = ResultDataTrim(scoreYMD[3].ToString());
+        DateText4.text = ResultDataTrim(scoreYMD[4].ToString());
+        DateText5.text = ResultDataTrim(scoreYMD[5].ToString());
+        DateText6.text = ResultDataTrim(scoreYMD[6].ToString());
+        DateText7.text = ResultDataTrim(scoreYMD[7].ToString());
+        DateText8.text = ResultDataTrim(scoreYMD[8].ToString());
+        DateText9.text = ResultDataTrim(scoreYMD[9].ToString());
     }
 
-    // Update is called once per frame
-    void Update()
+    // スコアの日付の秒以降のデータを切り取る
+    private string ResultDataTrim(string scoreText)
     {
-        
+        return scoreText.Substring(0, scoreText.Length - 3);
     }
 }

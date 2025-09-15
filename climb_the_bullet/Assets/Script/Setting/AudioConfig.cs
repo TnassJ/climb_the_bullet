@@ -14,10 +14,10 @@ public class AudioConfig : MonoBehaviour
 
     void Awake()
     {
-        float bgmValue = PlayerPrefs.GetFloat("bgmSliderPosition", 1.0f); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚Í‚È‚©‚Á‚½‚Ì”’l
-        float seValue = PlayerPrefs.GetFloat("seSliderPosition", 1.0f); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚Í‚È‚©‚Á‚½‚Ì”’l
+        float bgmValue = PlayerPrefs.GetFloat("bgmSliderPosition", 1.0f); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã¯ãªã‹ã£ãŸæ™‚ã®æ•°å€¤
+        float seValue = PlayerPrefs.GetFloat("seSliderPosition", 1.0f); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã¯ãªã‹ã£ãŸæ™‚ã®æ•°å€¤
 
-        //ƒV[ƒ““Ç‚İ‚İAŒ»İ‚Ì‰¹—Êİ’è‚ğƒXƒ‰ƒCƒ_[‚É”½‰f
+        //ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿æ™‚ã€ç¾åœ¨ã®éŸ³é‡è¨­å®šã‚’ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã«åæ˜ 
         bgmSlider.value = bgmValue;
         seSlider.value = seValue;
     }
@@ -27,39 +27,39 @@ public class AudioConfig : MonoBehaviour
     {
 
 
-        //ƒXƒ‰ƒCƒ_[‚ğG‚Á‚½‚ç‰¹—Ê‚ª•Ï‰»‚·‚é
+        //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è§¦ã£ãŸã‚‰éŸ³é‡ãŒå¤‰åŒ–ã™ã‚‹
         bgmSlider.onValueChanged.AddListener((value) =>
         {
             value = Mathf.Clamp01(value);
             Debug.Log("Value = " + value);
 
-            //•Ï‰»‚·‚é‚Ì‚Í-80`0‚Ü‚Å‚ÌŠÔ
+            //å¤‰åŒ–ã™ã‚‹ã®ã¯-80ï½0ã¾ã§ã®é–“
             float decibel = 20f * Mathf.Log10(value);
             decibel = Mathf.Clamp(decibel, -80f, 0f);
             audioMixer.SetFloat("BGM", decibel);
 
-            //‘¼‚ÌƒV[ƒ“‚Å’l‚ğŒÄ‚Ño‚·‚½‚ß‚É•Û‘¶‚µ‚Ä‚¨‚­
-            PlayerPrefs.SetFloat("bgmValue", decibel); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚ÉƒZƒbƒg‚·‚é”’l
-            //ƒXƒ‰ƒCƒ_[‚ÌˆÊ’u‚à•Û‘¶‚·‚é
-            PlayerPrefs.SetFloat("bgmSliderPosition", value); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚ÉƒZƒbƒg‚·‚é”’l
-            PlayerPrefs.Save();//ƒf[ƒ^‚ÉƒZƒbƒg‚µ‚½‚ç•Û‘¶‚·‚é
+            //ä»–ã®ã‚·ãƒ¼ãƒ³ã§å€¤ã‚’å‘¼ã³å‡ºã™ãŸã‚ã«ä¿å­˜ã—ã¦ãŠã
+            PlayerPrefs.SetFloat("bgmValue", decibel); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹æ•°å€¤
+            //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®ä½ç½®ã‚‚ä¿å­˜ã™ã‚‹
+            PlayerPrefs.SetFloat("bgmSliderPosition", value); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹æ•°å€¤
+            PlayerPrefs.Save();//ãƒ‡ãƒ¼ã‚¿ã«ã‚»ãƒƒãƒˆã—ãŸã‚‰ä¿å­˜ã™ã‚‹
         });
 
-        //ƒXƒ‰ƒCƒ_[‚ğG‚Á‚½‚ç‰¹—Ê‚ª•Ï‰»‚·‚é
+        //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è§¦ã£ãŸã‚‰éŸ³é‡ãŒå¤‰åŒ–ã™ã‚‹
         seSlider.onValueChanged.AddListener((value) =>
         {
             value = Mathf.Clamp01(value);
 
-            //•Ï‰»‚·‚é‚Ì‚Í-80`0‚Ü‚Å‚ÌŠÔ
+            //å¤‰åŒ–ã™ã‚‹ã®ã¯-80ï½0ã¾ã§ã®é–“
             float decibel = 20f * Mathf.Log10(value);
             decibel = Mathf.Clamp(decibel, -80f, 0f);
             audioMixer.SetFloat("SE", decibel);
 
-            //‘¼‚ÌƒV[ƒ“‚Å’l‚ğŒÄ‚Ño‚·‚½‚ß‚É•Û‘¶‚µ‚Ä‚¨‚­
-            PlayerPrefs.SetFloat("seValue", decibel); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚ÉƒZƒbƒg‚·‚é”’l
-            //ƒXƒ‰ƒCƒ_[‚ÌˆÊ’u‚à•Û‘¶‚·‚é
-            PlayerPrefs.SetFloat("seSliderPosition", value); //‘æˆêˆø”‚ÉƒZƒbƒg‚·‚éêŠA‘æ“ñˆø”‚ÉƒZƒbƒg‚·‚é”’l
-            PlayerPrefs.Save();//ƒf[ƒ^‚ÉƒZƒbƒg‚µ‚½‚ç•Û‘¶‚·‚é
+            //ä»–ã®ã‚·ãƒ¼ãƒ³ã§å€¤ã‚’å‘¼ã³å‡ºã™ãŸã‚ã«ä¿å­˜ã—ã¦ãŠã
+            PlayerPrefs.SetFloat("seValue", decibel); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹æ•°å€¤
+            //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®ä½ç½®ã‚‚ä¿å­˜ã™ã‚‹
+            PlayerPrefs.SetFloat("seSliderPosition", value); //ç¬¬ä¸€å¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹å ´æ‰€ã€ç¬¬äºŒå¼•æ•°ã«ã‚»ãƒƒãƒˆã™ã‚‹æ•°å€¤
+            PlayerPrefs.Save();//ãƒ‡ãƒ¼ã‚¿ã«ã‚»ãƒƒãƒˆã—ãŸã‚‰ä¿å­˜ã™ã‚‹
         });
     }
 

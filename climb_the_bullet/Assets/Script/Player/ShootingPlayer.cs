@@ -123,11 +123,14 @@ public class ShootingPlayer : MonoBehaviour
         // Actionスクリプトのインスタンス生成
         _gameInputs = new GameInputs();
         // Actionイベント登録
-        _gameInputs.Player.Move.started += OnMove;
+        //_gameInputs.Player.Move.started += OnMove; startがあると押しっぱなしの挙動が変になる
         _gameInputs.Player.Move.performed += OnMove;
         _gameInputs.Player.Move.canceled += OnMove;
         _gameInputs.Player.ShikigamiChangeLeft.performed += OnShikigamiChangeLeft;
         _gameInputs.Player.ShikigamiChangeRight.performed += OnShikigamiChangeRight;
+
+        _gameInputs.Player.Slow.performed += PressShift;
+        _gameInputs.Player.Slow.canceled += PressShift;
 
         // Input Actionを機能させるためには、
         // 有効化する必要がある
@@ -136,7 +139,7 @@ public class ShootingPlayer : MonoBehaviour
 
     void Update()
     {
-        if (state == STATE.NEUTRAL) 
+        if (state == STATE.NEUTRAL)
         {
             SikigamiDisactive();
             return;
@@ -182,28 +185,13 @@ public class ShootingPlayer : MonoBehaviour
         if (Time.timeScale <= 0) return;//ポーズ中は呼び出せない
 
         // 押された瞬間でPerformedとなる
-        // if (!context.performed) return;
-
-        // OnSlow = !OnSlow;
-        Debug.Log("PressShift");
-
-        switch (context.phase)
-        {
-            case InputActionPhase.Performed:
-                // ボタンが押された時の処理
-                OnSlow = true;
-                break;
-
-            case InputActionPhase.Canceled:
-                // ボタンが離された時の処理
-                OnSlow = false;
-                break;
-        }
-
+        if (context.performed) OnSlow = true;
+        else OnSlow = false;
     }
 
     private void FixedUpdate()
     {
+        if (state == STATE.DAMAGED) return;
         // 移動方向のベクトルに移動量をかけて座標に加算
         if (!OnSlow) slowSpeedRatio = 1.0f;
 
@@ -262,7 +250,6 @@ public class ShootingPlayer : MonoBehaviour
 
         state = STATE.DAMAGED;
         
-
         // HP を減らす
         PlayerHP -= damage;
         LifeIconManager.IconNumChange(PlayerHP);            
@@ -280,9 +267,10 @@ public class ShootingPlayer : MonoBehaviour
             DamageAnimation();
             // SE を再生する
             var audioSource = GameObject.Find("AudioSource(SE)").GetComponent<AudioSource>();
-            audioSource.PlayOneShot(DamageSE, 0.5f);
+
+            audioSource.PlayOneShot(DamageSE);
             Debug.Log("Hit");
-            StartCoroutine(_hit());
+            StartCoroutine(HitedEffect());
             return;
         }
 
@@ -372,7 +360,7 @@ public class ShootingPlayer : MonoBehaviour
         EnemyKillNum += num;
     }
     
-    IEnumerator _hit()
+    IEnumerator HitedEffect()
     {
         //色を白にする
         sp.color = Color.white;
@@ -380,20 +368,17 @@ public class ShootingPlayer : MonoBehaviour
         transform.position = new Vector3(0, -5, 0);
         //sp.color += new Color(0, 0, 0, 255);
         sp.enabled = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         //sp.color -= new Color(0, 0, 0, 255);
         sp.enabled = true;
         for (int i = 0; i < loopCount; i++)
         {
-
-
             yield return new WaitForSeconds(flashInterval);
             sp.enabled = false;
             yield return new WaitForSeconds(flashInterval);
             sp.enabled = true;
 
-            //ループが20回まわったら
-            if (i > 5)
+            if (i > 1)
             {
                 //stateをMUTEKIにする（点滅しながら動けるようになる）
                 state = STATE.MUTEKI;
@@ -407,17 +392,6 @@ public class ShootingPlayer : MonoBehaviour
         //色を白にする
         sp.color = Color.white;
     }
-
-    // 検証用のレベルアップコマンド ※※※リリース時にはコメントアウト※※※
-    // private void LevelUpCommand()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.L)) {
-
-    //         // レベルアップする
-    //         Playerlevel++;
-    //         ShotUpdate();
-    //     }
-    // }
 
     private void OnShikigamiChangeLeft(InputAction.CallbackContext context)
     {
