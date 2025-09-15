@@ -41,7 +41,7 @@ public class Bomb : MonoBehaviour
     public float ShotInterval_Bomb_TENKU; // 分身の弾の発射間隔（秒
     public float RIKUGOBombSpeed; // 速度
 
-    int BombBonus = 10000; // ボムのボーナス
+    const int BombBonus = 10000; // ボムのボーナス
     
     public int BunshinRandam;
 
@@ -50,6 +50,12 @@ public class Bomb : MonoBehaviour
     // 残機アイコンとボムアイコンの管理スクリプト呼び出し
     [SerializeField]
     private IconUIManager1 BombIconManager;
+
+    public int MUTEKIFlashCount = 50;
+
+    const int BombMUTEKITime = 5;
+
+    SpriteRenderer PlayerRenderer; // プレイヤーの色相等を変えるのに必要
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +69,10 @@ public class Bomb : MonoBehaviour
         // Input Actionを機能させるためには、
         // 有効化する必要がある
         _gameInputs.Enable();
+
+        // プレイヤーのレンダー情報取得
+        var PlayerObject = GameObject.Find("Player");
+        PlayerRenderer = PlayerObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -75,8 +85,12 @@ public class Bomb : MonoBehaviour
         var PlayerObject = GameObject.Find("Player");
         var shootingPlayerObject = PlayerObject.GetComponent<ShootingPlayer>();
         timeCount_Bomb += Time.deltaTime;
-        if (timeCount_Bomb < 5) return;
+
+        Debug.Log("MUTEKI");
+        if (timeCount_Bomb < BombMUTEKITime) return;
+        Debug.Log("MUTEKITIMEKOETA time:" + timeCount_Bomb);
         if (!bombMUTEKI) return;
+        Debug.Log("MUTEKIOWARI");
         
         shootingPlayerObject.state = STATE.NOMAL;
         timeCount_Bomb = 0;
@@ -97,7 +111,7 @@ public class Bomb : MonoBehaviour
 
         var PlayerObject = GameObject.Find("Player");
         var shootingPlayerObject = PlayerObject.GetComponent<ShootingPlayer>();
-
+        if (shootingPlayerObject.state == STATE.NEUTRAL) return; //NEUTRAL時は呼び出せない（撃破後等）
 
         //ボム数が0なら処理を終える
         if (ShootingPlayer.PlayerBomb == 0) return;
@@ -138,102 +152,34 @@ public class Bomb : MonoBehaviour
         {
             Bomb_Shoot_RIKUGO();
         }
-        shootingPlayerObject.state = STATE.MUTEKI;
+
         timeCount_Bomb = 0;
+        StartCoroutine(MUTEKIEffect());
+        //stateをMUTEKIにする（点滅しながら動けるようになる）
+        shootingPlayerObject.state = STATE.MUTEKI;
         bombMUTEKI = true;
+    }
+    
+    IEnumerator MUTEKIEffect()
+    {
+        // 1ループに点灯と消灯を行うので1/2しておく
+        float flashInterval = 0.5f * (float)BombMUTEKITime / (float)MUTEKIFlashCount;
+        Debug.Log("flashInterval"+flashInterval);
 
+        //色を白にする
+        PlayerRenderer.color = Color.white;
+        for (int i = 0; i < MUTEKIFlashCount; i++)
+        {
+            yield return new WaitForSeconds(flashInterval);
+            PlayerRenderer.enabled = false;
+            yield return new WaitForSeconds(flashInterval);
+            PlayerRenderer.enabled = true;
+        }
 
+        //色を白にする
+        PlayerRenderer.color = Color.white;
     }
 
-    ////ボムを呼び出す関数
-    //private void Bomb_Trigger()
-    //{
-    //    var PlayerObject = GameObject.Find("Player");
-    //    var shootingPlayerObject = PlayerObject.GetComponent<ShootingPlayer>();
-
-    //    if (Input.GetKeyDown(KeyCode.X)) //TODO:連続で打てないようにする
-    //    {
-    //        //ボム数が0なら処理を終える
-    //        if (ShootingPlayer.PlayerBomb == 0) return;
-
-    //        //ボムを一つ消費
-    //        ShootingPlayer.PlayerBomb--;
-    //        // ボム数更新
-    //        BombIconManager.IconNumChange(ShootingPlayer.PlayerBomb);
-    //        //経験値ボーナス
-    //        shootingPlayerObject.AddExp(BombBonus); 
-            
-    //        //SeitchCountを呼び出すために必要
-    //        var ShikigamiObject = GameObject.Find("式神UI管理");
-    //        var ShikigamiManagerObject = ShikigamiObject.GetComponent<ShikigamiManager>();
-    //        //カウントが一定時間になるまで主人公を無敵に（時間は式神による）
-            
-    //        var ShikigamiMode = Mathf.Abs(ShootingPlayer.SikigamiMode) % 4;
-            
-    //        if (ShikigamiMode == 0)
-    //        {
-    //            Bomb_Shoot_TODA();
-    //        }
-    //        else if(ShikigamiMode == 1)
-    //        {
-    //            Bomb_Shoot_TENKO();
-    //        }
-
-    //        else if(ShikigamiMode == 2)
-    //        {
-    //            //ボム時演出（式神アイコンにパーティクル）
-    //            //GetComponent<ParticleSystem>().Play();
-
-    //            //ボム弾幕の関数　式神に応じて動きを変えたい
-    //            Bomb_Shoot_TENKU(ShotSpeed_Bomb_TENKU, ShotCount_Bomb_TENKU);
-    //        }
-
-    //        else if(ShikigamiMode == 3)
-    //        {
-    //            Bomb_Shoot_RIKUGO();
-    //        }
-    //        shootingPlayerObject.state = STATE.MUTEKI;
-    //        timeCount_Bomb = 0;
-    //        bombMUTEKI = true;
-
-    //    }
-    //}
-
-
-    // TODO:ボムを発射する関数
-    //private void Bomb_ShootA(float angleBase, float angleRange, float speed, int count)
-    //{
-    //    var pos = transform.position; // プレイヤーの位置
-    //    var rot = transform.rotation; // プレイヤーの向き
-
-
-
-    //    // 弾を複数発射する場合
-    //    if (1 < count)
-    //    {
-    //        // 発射する回数分ループする
-    //        for (int i = 0; i < count; ++i)
-    //        {
-    //            // 弾の発射角度を計算する
-    //            var angle = angleBase + angleRange * ((float)i / (count - 1) - 0.5f);
-
-    //            // 発射する弾を生成する
-    //            var shot = Instantiate(ShotPrefab_Bomb, pos, rot);
-
-    //            // 弾を発射する方向と速さを設定する
-    //            shot.Init_Bomb(angle, speed);
-    //        }
-    //    }
-    //    // 弾を 1 つだけ発射する場合
-    //    else if (count == 1)
-    //    {
-    //        // 発射する弾を生成する
-    //        var shot = Instantiate(ShotPrefab_Bomb, pos, rot);
-
-    //        // 弾を発射する方向と速さを設定する
-    //        shot.Init_Bomb(angleBase, speed);
-    //    }
-    //}
     private void Bomb_Shoot_TODA()
     {
         //パーティクルシステムのインスタンスを生成

@@ -26,7 +26,7 @@ public class BossManager : MonoBehaviour
         var bossDown = bossPrefab.BossDead; // ボスを倒したかどうか
         if (bossDown)
         {
-            Invoke("BossDownActive", 0.5f);
+            Invoke("BossDownActive", 1.5f);
             backGroundAnimaor.enabled = false;
         }
     }

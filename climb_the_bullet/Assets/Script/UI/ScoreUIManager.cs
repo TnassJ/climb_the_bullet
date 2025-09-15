@@ -26,8 +26,7 @@ public class ScoreUIManager : MonoBehaviour
         {
             //第一引数にリストに入れるスコア、第二引数はスコアがない場合に入れる数値
             score.Add(PlayerPrefs.GetInt($"SCORE[{i}]", 0));
-            scoreYMD.Add(PlayerPrefs.GetString($"SCOREYMD[{i}]", "YYYY/MM/DD"));
-
+            scoreYMD.Add(PlayerPrefs.GetString($"SCOREYMD[{i}]", "YYYY/MM/DDFFF"));
         }
         Debug.Log("score=" + string.Join(" , ", score));
         m_levelText_Hiscore.text = score[0].ToString();
@@ -72,10 +71,7 @@ public class ScoreUIManager : MonoBehaviour
                 }
                 PlayerPrefs.Save();//データにセットしたら保存する
                 ScoreCalledOnce = true; //スコア更新は一度のみ
-                                        //Debug.Log("ハイスコアは" + score[0]);
-                                        //Debug.Log("Prefsの値は" + PlayerPrefs.GetInt("SCORE[0]", 0));
-                m_levelText_notification.text = "ハイスコア更新！";
-
+                m_levelText_notification.text = "HIGH SCORE!";
                 return; //スコアの更新を行った場合、処理を終了
 
             }
@@ -102,8 +98,7 @@ public class ScoreUIManager : MonoBehaviour
                     }
                     PlayerPrefs.Save();
                     ScoreCalledOnce = true;
-                    m_levelText_notification.text = i.ToString() + "番目のスコアにランクイン！";
-
+                    m_levelText_notification.text = "RANK IN " + i.ToString() + "TH!";
                     return; //スコアの更新を行った場合、処理を終了
                 }
             }
@@ -112,8 +107,7 @@ public class ScoreUIManager : MonoBehaviour
             if (scoreNow <= score[9])
             {
                 ScoreCalledOnce = true;
-                m_levelText_notification.text = "ランク圏外";
-
+                m_levelText_notification.text = "OUT OF RANKING";
                 return;
             }
 
