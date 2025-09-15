@@ -46,13 +46,13 @@ public class ResultSceneManager : MonoBehaviour
             //�������Ƀ��X�g�ɓ����X�R�A�A�������̓X�R�A���Ȃ��ꍇ�ɓ���鐔�l
             score.Add(PlayerPrefs.GetInt($"SCORE[{i}]", 0));
             scoreYMD.Add(PlayerPrefs.GetString($"SCOREYMD[{i}]", "YYYY/MM/DDFFF"));
-
         }
         //�����̃X�R�A�̒l�����ׂ�score���X�g�ɑ}���Ascore[0]���n�C�X�R�A
         //for (int i = 0; i < 10; i++)
         //{
         //�������Ƀ��X�g�ɓ����X�R�A�A�������̓X�R�A���Ȃ��ꍇ�ɓ���鐔�l
         //score.Add(PlayerPrefs.GetInt($"SCORE[{i}]", 0));
+
         scoreText0.text = score[0].ToString().PadLeft(8, '0');
         scoreText1.text = score[1].ToString().PadLeft(8, '0');
         scoreText2.text = score[2].ToString().PadLeft(8, '0');
@@ -74,15 +74,6 @@ public class ResultSceneManager : MonoBehaviour
         DateText7.text = ResultDataTrim(scoreYMD[7].ToString());
         DateText8.text = ResultDataTrim(scoreYMD[8].ToString());
         DateText9.text = ResultDataTrim(scoreYMD[9].ToString());
-
-        //}
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     // スコアの日付の秒以降のデータを切り取る

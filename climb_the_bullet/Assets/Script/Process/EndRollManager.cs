@@ -17,7 +17,6 @@ public class EndRollScript : MonoBehaviour
     private bool isStopEndRoll;
     //　シーン移動用コルーチン
     private Coroutine endRollCoroutine;
-
     private GameInputs _gameInputs;
 
     void Start()
@@ -33,7 +32,7 @@ public class EndRollScript : MonoBehaviour
         _gameInputs.Enable();
     }
     // Update is called once per frame
-        void Update()
+    void Update()
     {
         //　エンドロールが終了した時
         if (isStopEndRoll)
@@ -54,7 +53,7 @@ public class EndRollScript : MonoBehaviour
         }
     }
 
-        private void OnDestroy()
+    private void OnDestroy()
     {
         // 自身でインスタンス化したActionクラスはIDisposableを実装しているので、
         // 必ずDisposeする必要がある
@@ -78,6 +77,4 @@ public class EndRollScript : MonoBehaviour
 
         yield return null;
     }
-    
-
 }

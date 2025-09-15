@@ -85,6 +85,7 @@ public class Bomb : MonoBehaviour
         var PlayerObject = GameObject.Find("Player");
         var shootingPlayerObject = PlayerObject.GetComponent<ShootingPlayer>();
         timeCount_Bomb += Time.deltaTime;
+
         Debug.Log("MUTEKI");
         if (timeCount_Bomb < BombMUTEKITime) return;
         Debug.Log("MUTEKITIMEKOETA time:" + timeCount_Bomb);
@@ -151,6 +152,7 @@ public class Bomb : MonoBehaviour
         {
             Bomb_Shoot_RIKUGO();
         }
+
         timeCount_Bomb = 0;
         StartCoroutine(MUTEKIEffect());
         //stateをMUTEKIにする（点滅しながら動けるようになる）
@@ -158,7 +160,7 @@ public class Bomb : MonoBehaviour
         bombMUTEKI = true;
     }
     
-        IEnumerator MUTEKIEffect()
+    IEnumerator MUTEKIEffect()
     {
         // 1ループに点灯と消灯を行うので1/2しておく
         float flashInterval = 0.5f * (float)BombMUTEKITime / (float)MUTEKIFlashCount;

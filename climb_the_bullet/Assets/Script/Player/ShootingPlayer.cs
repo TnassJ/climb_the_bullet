@@ -123,6 +123,7 @@ public class ShootingPlayer : MonoBehaviour
         // Actionスクリプトのインスタンス生成
         _gameInputs = new GameInputs();
         // Actionイベント登録
+
         //_gameInputs.Player.Move.started += OnMove; startがあると押しっぱなしの挙動が変になる
         _gameInputs.Player.Move.performed += OnMove;
         _gameInputs.Player.Move.canceled += OnMove;
@@ -138,6 +139,7 @@ public class ShootingPlayer : MonoBehaviour
 
     void Update()
     {
+
         if (state == STATE.NEUTRAL)
         {
             SikigamiDisactive();
