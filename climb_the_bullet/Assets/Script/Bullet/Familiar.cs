@@ -109,7 +109,7 @@ public class Familiar : MonoBehaviour
         // BulletスクリプトのInitを呼び出す
         shot.Init(shotAngle, 3);
         shot.LotationSwitch = false; //弾の向きを固定
-        audioSource.PlayOneShot(bulletClip); // SE再生
+        audioSource.PlayOneShot(bulletClip, 0.05f); // SE再生
     }
 
     void ToMeBullet_familiar()
@@ -128,8 +128,7 @@ public class Familiar : MonoBehaviour
 
         // BulletスクリプトのInitを呼び出す
         shot.Init(shotAngle, 5);
-        audioSource.PlayOneShot(bulletClip); // SE再生
-
+        audioSource.PlayOneShot(bulletClip, 0.05f); // SE再生
     }
 
     // 2点間の角度を取得

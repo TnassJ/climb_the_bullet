@@ -42,7 +42,7 @@ public class ShootingOYAMATUMI : MonoBehaviour
 
         // 弾を発射する
         ShootNWay(angle, ShotAngleRange, ShotSpeed, ShotCount);
-        audioSource.PlayOneShot(ShotClip_OYAMATUMI); // SE再生
+        audioSource.PlayOneShot(ShotClip_OYAMATUMI, 0.05f); // SE再生
         var movex = Random.Range(-5.0f, 5.0f);
         var movey = Random.Range(-5.0f, 2.0f);
         this.transform.position = new Vector3(movex, movey, 0);

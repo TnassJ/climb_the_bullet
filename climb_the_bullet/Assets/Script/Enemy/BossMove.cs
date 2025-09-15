@@ -1275,7 +1275,7 @@ public class BossMove : MonoBehaviour
         if (!ShotCalledOnce)
         {
             GameObject Illusion = Instantiate(IllusionPrefab, position_under, Quaternion.identity); //カットインオブジェクトの出現
-            audioSource.PlayOneShot(bossFamiliarClip); // SE再生
+            audioSource.PlayOneShot(bossFamiliarClip, 0.5f); // SE再生
             ShotCalledOnce = !ShotCalledOnce; //カットイン用の変数を反転させることで一度だけ実行
 
         }
@@ -1368,7 +1368,6 @@ public class BossMove : MonoBehaviour
 
         // 前フレームからの時間の差を加算
         timeCount += Time.deltaTime;
-
         if (randomCount >= 9.99f && timeCount > shotInterval)
         {
 
@@ -1386,8 +1385,7 @@ public class BossMove : MonoBehaviour
             shotPlus.VortexBullet_familiar_On = true; //この使い魔はvortexを出す
 
             timeCount = 0;
-            audioSource.PlayOneShot(bossFamiliarClip, 0.1f); // SE再生
-
+            audioSource.PlayOneShot(bossFamiliarClip, 0.2f); // SE再生
         }
     }
 
@@ -1564,7 +1562,7 @@ public class BossMove : MonoBehaviour
     //富士山　一富士二鷹三茄子　鱗弾青、使い魔鷹、大玉弾桃
     public void nitaka()
     {
-        var TP1 = 1.75f;//TimePoint 連射時間1
+        var TP1 = 1.50f;//TimePoint 連射時間1
         var TP2 = 2;//連射時間2
         var TP3 = 1.5f;//連射時間3
         var TP4 = 0.3f;//休憩時間

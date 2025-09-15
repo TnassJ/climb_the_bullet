@@ -60,7 +60,7 @@ public class ShootingShikigami_TENKO : MonoBehaviour
 
         // 弾を発射する
         ShootNWay(angle, ShotAngleRange, ShotSpeed, ShotCount);
-        audioSource.PlayOneShot(ShotClip_TENKO, 0.1f); // SE再生
+        audioSource.PlayOneShot(ShotClip_TENKO, 0.04f); // SE再生
     }
 
     // ショット内容を外部から変更するための関数

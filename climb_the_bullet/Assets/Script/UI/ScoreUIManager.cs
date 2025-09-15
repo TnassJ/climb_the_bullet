@@ -72,6 +72,7 @@ public class ScoreUIManager : MonoBehaviour
                 PlayerPrefs.Save();//データにセットしたら保存する
                 ScoreCalledOnce = true; //スコア更新は一度のみ
                 m_levelText_notification.text = "HIGH SCORE!";
+
                 return; //スコアの更新を行った場合、処理を終了
 
             }
@@ -99,6 +100,7 @@ public class ScoreUIManager : MonoBehaviour
                     PlayerPrefs.Save();
                     ScoreCalledOnce = true;
                     m_levelText_notification.text = "RANK IN " + i.ToString() + "TH!";
+                    
                     return; //スコアの更新を行った場合、処理を終了
                 }
             }
@@ -108,6 +110,7 @@ public class ScoreUIManager : MonoBehaviour
             {
                 ScoreCalledOnce = true;
                 m_levelText_notification.text = "OUT OF RANKING";
+
                 return;
             }
 

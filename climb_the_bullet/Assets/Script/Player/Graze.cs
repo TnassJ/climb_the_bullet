@@ -27,7 +27,7 @@ public class Graze : MonoBehaviour
             Debug.Log(GrazeCount);
             //グレイズ時SE再生
             var audioSource = GameObject.Find("AudioSource(SE)").GetComponent<AudioSource>();
-            audioSource.PlayOneShot(GrazeClip, 0.1f);
+            audioSource.PlayOneShot(GrazeClip, 0.045f);
             //オブジェクトにつけたパーティクルを再生
             GetComponent<ParticleSystem>().Play();
         }

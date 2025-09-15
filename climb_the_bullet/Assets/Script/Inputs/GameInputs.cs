@@ -593,6 +593,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
     private int m_KeyAndPadSchemeIndex = -1;
     public InputControlScheme KeyAndPadScheme
     {

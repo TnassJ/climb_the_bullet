@@ -123,12 +123,12 @@ public class ShootingPlayer : MonoBehaviour
         // Actionスクリプトのインスタンス生成
         _gameInputs = new GameInputs();
         // Actionイベント登録
-
         //_gameInputs.Player.Move.started += OnMove; startがあると押しっぱなしの挙動が変になる
         _gameInputs.Player.Move.performed += OnMove;
         _gameInputs.Player.Move.canceled += OnMove;
         _gameInputs.Player.ShikigamiChangeLeft.performed += OnShikigamiChangeLeft;
         _gameInputs.Player.ShikigamiChangeRight.performed += OnShikigamiChangeRight;
+
         _gameInputs.Player.Slow.performed += PressShift;
         _gameInputs.Player.Slow.canceled += PressShift;
 
@@ -139,7 +139,6 @@ public class ShootingPlayer : MonoBehaviour
 
     void Update()
     {
-
         if (state == STATE.NEUTRAL)
         {
             SikigamiDisactive();
@@ -187,7 +186,6 @@ public class ShootingPlayer : MonoBehaviour
 
         // 押された瞬間でPerformedとなる
         if (context.performed) OnSlow = true;
-
         else OnSlow = false;
     }
 
@@ -269,6 +267,7 @@ public class ShootingPlayer : MonoBehaviour
             DamageAnimation();
             // SE を再生する
             var audioSource = GameObject.Find("AudioSource(SE)").GetComponent<AudioSource>();
+
             audioSource.PlayOneShot(DamageSE);
             Debug.Log("Hit");
             StartCoroutine(HitedEffect());

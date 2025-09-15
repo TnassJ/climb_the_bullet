@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -294,6 +294,4 @@ public class Bomb : MonoBehaviour
         //カットインオブジェクトの出現
         GameObject Cutin = Instantiate(CutinPrefab_RIKUGO) as GameObject;
     }
-
-
 }

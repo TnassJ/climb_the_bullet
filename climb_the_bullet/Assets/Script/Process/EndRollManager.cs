@@ -31,6 +31,7 @@ public class EndRollScript : MonoBehaviour
         // 有効化する必要がある
         _gameInputs.Enable();
     }
+
     // Update is called once per frame
     void Update()
     {
