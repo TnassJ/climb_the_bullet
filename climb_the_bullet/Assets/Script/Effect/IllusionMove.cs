@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IllusionMove : MonoBehaviour
 {
-    //ˆÚ“®‚ÌŠ—vŽžŠÔ
+    //ç§»å‹•ã®æ‰€è¦æ™‚é–“
     float moveTime = 1.5f;
 
     float speed;
@@ -12,16 +12,20 @@ public class IllusionMove : MonoBehaviour
     Vector3 Target;
     Vector3 BasePoint;
 
+    //ä¸€å®šæ™‚é–“çµŒã£ãŸã‚‰æ¶ˆåŽ»
+    float DisplayTime = 5.0f;
+    float timeCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         Target = new Vector3(0.0f, -4.0f, 0.0f);
         BasePoint = new Vector3(0.0f, 4.0f, 0.0f);
-        //ƒXƒ^[ƒg‚©‚çƒS[ƒ‹‚Ü‚Å‚Ì‘‹——£‚ðo‚·
+        //ã‚¹ã‚¿ãƒ¼ãƒˆã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¾ã§ã®ç·è·é›¢ã‚’å‡ºã™
         distance = Vector3.Distance(BasePoint, Target);
-        //‚©‚©‚éŽžŠÔ‚Æ‹——£‚©‚ç‘¬‚³‚ðo‚·
+        //ã‹ã‹ã‚‹æ™‚é–“ã¨è·é›¢ã‹ã‚‰é€Ÿã•ã‚’å‡ºã™
         speed = distance / moveTime;
-        //ˆÊ’u‚Ì‰Šú‰»
+        //ä½ç½®ã®åˆæœŸåŒ–
         transform.localPosition = BasePoint;
     }
 
@@ -35,5 +39,12 @@ public class IllusionMove : MonoBehaviour
         }
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, Target, speed * Time.deltaTime);
 
+        timeCount += Time.deltaTime;
+
+        //ä¸€å®šæ™‚é–“çµŒã£ãŸã‚‰æ¶ˆåŽ»
+        if (timeCount > DisplayTime)
+        {
+            Destroy(gameObject);
+        }
     }
 }
