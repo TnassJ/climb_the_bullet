@@ -1361,17 +1361,15 @@ public class BossMove : MonoBehaviour
         //ここではrandomCountで抽出した数字の大きさに対して条件分岐することで
         //ランダムなインターバルを再現している。インターバルが開きすぎないように別途shotIntervalでも補完
         var randomCount = Random.Range(0.3f, 10.0f);
-        shotInterval = 1.0f;
+        shotInterval = 2.0f;
 
         float rnd_angle = Random.Range(-20.0f, 20.0f);
         float rnd_position = Random.Range(-2.0f, 3.0f);
 
         // 前フレームからの時間の差を加算
         timeCount += Time.deltaTime;
-        if (randomCount >= 9.99f && timeCount > shotInterval)
+        if (randomCount >= 9.99f || timeCount > shotInterval)
         {
-
-
             timeCount = 0; // 再発射のために時間をリセット
 
             Vector3 shotPosition = new Vector3(6.0f, 1 + rnd_position, 0.0f);
